@@ -1,0 +1,30 @@
+﻿<script type="text/javascript">
+    
+    function isNullOrEmpty(s) {
+        return (s == null || s === "");
+    }
+     
+    function showAlert(title, msg, icon) {
+        $('<div title="' +
+            title +
+            '">' +
+            '  <p> ' +
+            '      <span class="ui-icon ui-icon-circle-' +
+            icon +
+            '" style="float: left; margin: 0 7px 50px 0;"> ' +
+            '      </span>' +
+            msg +
+            '  </p> ' +
+            '</div>').dialog({
+            modal: true,
+            resizable: false,
+            buttons: {
+                Ok: function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        ajustaZindexUIModal();
+    }
+    
+</script>

@@ -1,0 +1,90 @@
+﻿@Html.AntiForgeryToken()
+@{
+    Layout = "~/Views/Layouts/_LayoutClean.cshtml";
+}
+<style>
+    .centerBox {
+        height: 80vh;
+        background: #ffffff !important;
+    }
+
+    .col-md-martins {
+        background: #ffffff !important;
+        width: 370px;
+        border-radius: 3px !important;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+        float: none !important;
+    }
+
+    .col-top-martins {
+        background: #ee4036 !important;
+        border-top-left-radius: 3px !important;
+        border-top-right-radius: 3px !important;
+        height: 50px;
+        width: 100%;
+        color: white;
+        padding-top: 15px;
+        padding-left: 15px;
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .col-top-martins-login {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .col-mid-martins {
+        width: 100%;
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .vertical-align {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+</style>
+<center class="centerBox vertical-align">
+    <div class="col-md-martins">
+        <div class="col-top-martins">
+            <i class="fa fa-th-list" aria-hidden="true"></i>
+            <span class="col-top-martins-login">
+                Login
+            </span>
+        </div>
+        <div class="col-mid-martins">
+            <form action="#" id="frmLogin" novalidate="novalidate">
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-user" id="i_log"></i>
+                        <input class="form-control placeholder-no-fix valid" type="text"
+                               autocomplete="off" placeholder="Nome de Usuário" id="tx_login"
+                               name="username" aria-required="true" aria-invalid="false"
+                               aria-describedby="username-error">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-lock" id="i_senh"></i>
+                        <input class="form-control placeholder-no-fix"
+                               type="password" autocomplete="off" id="tx_senha"
+                               placeholder="Senha" name="password">
+                    </div>
+                </div>
+                <span id="spnMsg" class="font-red"></span>
+                <div style="text-align: right;">
+                    <button type="submit" class="btn btn-primary red" id="btnLogin">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        Log In
+                    </button>
+                </div>
+                <br />
+            </form>
+        </div>
+    </div>
+</center>
+@Html.Partial("~/Views/Paginas/Login/Partials/_IndexScript.cshtml")

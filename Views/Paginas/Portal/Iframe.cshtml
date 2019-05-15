@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Layouts/_LayoutIframe.cshtml";
+    ViewBag.NomePagina = "Portal";
+    var colClassCount = 6;
+    var sistemasUsuario = ControleDeAcesso.ObterConjuntoDePermissoesUsuario(HttpContext.Current.Session);
+    var colCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Convert.ToDecimal(sistemasUsuario.SistemasPermitidos.Count) / Convert.ToDecimal(colClassCount))));
+}
+@Html.Partial("~/Views/Paginas/Portal/Partials/_IndexStyle.cshtml")
+@Html.AntiForgeryToken()
+<div class="col-xs-12 inner-background">
+
+    @{
+        for (var i = 0; i < colCount; i++)
+        {
+            <div class="row row-center">
+                @GenerateRows(sistemasUsuario.SistemasPermitidos.Skip(i).Take(colClassCount).ToList())
+            </div>
+        }
+    }
+    @helper GenerateRows(List<ControleDeAcessoTO.ObterSistemasPermitidos> SistemasPermitidos)
+    {
+foreach (var itm in SistemasPermitidos.Where(x => (!Request.Browser.IsMobileDevice || (Request.Browser.IsMobileDevice && x.FLGIDTDPVMVL == 1))))
+{
+        <div class="col-sm-1 smart-sistema col-center btnSistema" codsisinf="@itm.CODSISINF" style="min-width: 180px;">
+            <div class="smart-system-title">
+                <div class="smart-system-icon">
+                    @if (string.IsNullOrEmpty(itm.DESIMGSISINF))
+                    {
+                        <i class="fa fa-book" aria-hidden="true"></i>
+                    }
+                    else
+                    {
+                        <img src="data:image/png;base64, @itm.DESIMGSISINF" alt="Sistema" class="smart-img-sis" />
+                    }
+                </div>
+            </div>
+            <div class="smart-system-sep"></div>
+            <div class="smart-system-desc">
+                @itm.DESSISINF
+            </div>
+        </div>
+}
+}
+
+</div>
+@Html.Partial("~/Views/Paginas/Portal/Partials/_IndexScript.cshtml")

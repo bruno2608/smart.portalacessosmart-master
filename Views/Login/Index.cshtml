@@ -1,0 +1,73 @@
+﻿@*
+    Nova Página de Login.
+    Leon Denis Paiva e Silva [PrimeTeam]
+*@
+@{
+    Layout = "~/App_Pages/Layouts/_LayoutClean.cshtml";
+}
+@* Token de Segurança *@
+@Html.AntiForgeryToken()
+@* Folha De Estilo *@
+@Html.Partial("~/App_Pages/Paginas/Login/Partials/_IndexStyle.cshtml")
+@* Corpo da Página (HTML) *@
+<div class="smart-midle-container">
+    <form action="#" id="frmLogin" novalidate="novalidate">
+        <table class="smart-login-table">
+            <tbody>
+                <tr>
+                    <td class="smart-icon-td">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <input type="text" id="tx_login" class="smart-no-border-input"
+                                placeholder="Nome do Usuário" autocomplete="off" name="username"
+                                aria-required="true" aria-invalid="false" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="smart-control-base"></div>
+                        <span class="smart-control-invalid-span" id="tx-login-invalid"></span>
+                    </td>
+                </tr>
+                <tr><td colspan="2" class="smart-table-sp"></td></tr>
+                <tr>
+                    <td class="smart-icon-td">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </td>
+                    <td>
+                        <input type="password" id="tx_senha" class="smart-no-border-input"
+                                placeholder="Senha" autocomplete="off" name="password"
+                                aria-required="true" aria-invalid="false" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="smart-control-base"></div>
+                        <span class="smart-control-invalid-span" id="tx-senha-invalid"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="smart-forgot-pass-td">
+                        @*<a href="#" class="smart-forgot-pass">Esqueceu a sua senha ?</a>*@
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="smart-login-status">
+                        <span id="spnMsg" class="smart-login-message"></span>                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="smart-button-td">
+                        <button type="submit" id="btnLogin" class="btn btn-smart-red">
+                            ENTRAR
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div class="smart-copyrigth">Copyright &copy; @DateTime.Now.Year - Smart Supermecados. Todos os direitos reservados.</div>
+</div>
+@* Sccript *@
+@Html.Partial("~/App_Pages/Paginas/Login/Partials/_IndexScript.cshtml")

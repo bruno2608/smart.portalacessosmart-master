@@ -1,0 +1,116 @@
+﻿<script type="text/javascript">
+    //Page Load.
+    $(function () {
+        //Iniciando Página responsiva.
+        pageResponsive.start();
+        //Inicando Controles.
+        controlStart();
+        //Efetuar Login-----
+        with (new ComponenteValidationFactory()) {
+            with (modelo) {
+                idForm = "frmLogin";
+                //
+                with (addregras) { mensagem.required = "Digite o usuário.", nomeRegra = "username", obrigatorio = true, tamanhoMaximo = 255, tamanhoMinimo = 1, tipoValor = 'tipoTexto' };
+                with (addregras) { mensagem.required = "Digite a senha.", nomeRegra = "password", obrigatorio = true, tamanhoMaximo = 255, tamanhoMinimo = 1, tipoValor = 'tipoTexto' };
+            };
+            inicializar(null);
+        };
+        //--
+        $("#frmLogin").submit(function () {
+            if ($(this).valid()) {
+                $("#spnMsg").text("Efetuando o Login...");
+                //
+                with (new ComponenteAJAXFactory()) {
+                    with (modelo) {
+                        ajaxSuccessCallbackMethod = EfetuarLoginCallBack;
+                        ajaxURL = '@Url.Content("~/api/Login/EfetuarLogin")';
+                        async = true;
+                        with (addidsEnviarRequisicaoAjax) { idJsonEnviar = "tx_login", nomeJsonEnviar = "USUARIO", tipoJsonEnviar = 'tipoTexto' };
+                        with (addidsEnviarRequisicaoAjax) { idJsonEnviar = "tx_senha", nomeJsonEnviar = "SENHA", tipoJsonEnviar = 'tipoTexto' };
+                    };
+                    inicializar(null);
+                };
+                //
+            } else {
+                inputsLogin.valForm();
+            };
+        });
+        //----------------
+    });
+
+    //Login CallBack.
+    var EfetuarLoginCallBack = function (data) {
+        if (data.CODIGO != 1) {
+            $("#spnMsg").text(data.MENSAGEM);
+            $("#tx_login").focus();
+        } else {
+            $(location).attr('href', '@Url.Content("~/Paginas/Portal/Index")');
+        };
+    };
+
+    //Função dos Controles.
+    //Leon Denis Paiva e Silva. [PrimeTeam]
+    var controlStart = function () {
+        try {
+            $('#tx_login').keyup(function () { inputsLogin.valLogin(this); });
+            $('#tx_login').blur(function () { inputsLogin.valLogin(this); });
+            //-
+            $('#tx_senha').keyup(function () { inputsLogin.valSenha(this); });
+            $('#tx_senha').blur(function () { inputsLogin.valSenha(this); });
+        } catch (ex) {
+            console.log('ERRO: ' + ex.toLocaleString());
+        };
+    };
+
+    //Pagina Responsiva.
+    //Leon Denis Paiva e Silva. [PrimeTeam]
+    var pageResponsive = {
+        base: function () {
+            try {
+                var tmoContainer = ($(window).height() - $('.container').height()) + 'px';
+                $('.page-content').css('height', tmoContainer);
+            } catch (ex) {
+                console.log('ERRO: ' + ex.toLocaleString());
+            };
+        },
+        start: function () {
+            try {
+                pageResponsive.base();
+                $(window).resize(function () { pageResponsive.base(); });
+            } catch (ex) {
+                console.log('ERRO: ' + ex.toLocaleString());
+            };
+        }
+    };
+
+    //Validador de Login.
+    //Com Mensagem de Erro Customizada Smart.
+    //Leon Denis Paiva e Silva. [PrimeTeam]
+    var inputsLogin = {
+        valForm: function () {
+            try {
+                $('#tx-login-invalid').text($('#tx_login-error').text());
+                $('#tx-senha-invalid').text($('#tx_senha-error').text());
+            } catch (ex) {
+                console.log('ERRO: ' + ex.toLocaleString());
+            };
+        },
+        valLogin: function (inputObj) {
+            if ($(inputObj).val().length == 0) {
+                inputsLogin.valForm();
+            } else {
+                $('#tx_login-error').remove();
+                $('#tx-login-invalid').text('');
+            };
+        },
+        valSenha: function (inputObj) {
+            if ($(inputObj).val().length == 0) {
+                inputsLogin.valForm();
+            } else {
+                $('#tx_senha-error').remove();
+                $('#tx-senha-invalid').text('');
+            };
+        }
+    }
+    //--
+</script>

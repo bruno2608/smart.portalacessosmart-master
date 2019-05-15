@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<!--
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.7
+Version: 4.7.5
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+	<meta charset="utf-8" />
+	<title>Portal Smart</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<meta content="Preview page of Metronic Admin Theme #3 for rowreorder extension demos" name="description" />
+	<meta content="" name="author" />
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<link href="@Url.Content("~/assets/global/plugins/open-sans-gh-pages/open-sans.css")?v=@Arquitetura.Classes.Util.timeStampSystemUp" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/assets/global/plugins/font-awesome/css/font-awesome.min.css")?v=@Arquitetura.Classes.Util.timeStampSystemUp" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css")?v=@Arquitetura.Classes.Util.timeStampSystemUp" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/assets/global/plugins/bootstrap/css/bootstrap.min.css")?v=@Arquitetura.Classes.Util.timeStampSystemUp" rel="stylesheet" type="text/css" />
+	<!-- END GLOBAL MANDATORY STYLES -->
+	<!-- BEGIN THEME GLOBAL STYLES -->
+	<link href="@Url.Content("~/assets/global/css/components.min.css")?v=@Arquitetura.Classes.Util.timeStampSystemUp" rel="stylesheet" id="style_components" type="text/css" />
+	<link href="@Url.Content("~/assets/global/css/plugins.min.css")?v=@Arquitetura.Classes.Util.timeStampSystemUp" rel="stylesheet" type="text/css" />
+	<!-- END THEME GLOBAL STYLES -->
+	<!-- BEGIN THEME LAYOUT STYLES -->
+	<link href="@Url.Content("~/assets/layouts/layout/css/custom.css")?v=@Arquitetura.Classes.Util.timeStampSystemUp" rel="stylesheet" type="text/css" />
+	<!-- END THEME LAYOUT STYLES -->
+	<link rel="shortcut icon" href="@Url.Content("~/assets/layouts/layout/img/favicon.ico")?v=@Arquitetura.Classes.Util.timeStampSystemUp" />
+</head>
+<!-- END HEAD -->
+<body class="page-header-fixed page-sidebar-fixed page-sidebar-closed-hide-logo page-content-white">
+	<!-- SCRIPTS -->
+	<!--[if lt IE 9]>
+		<script src="@Url.Content("~/assets/global/plugins/respond.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp"></script>
+		<script src="@Url.Content("~/assets/global/plugins/excanvas.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp"></script>
+		<script src="@Url.Content("~/assets/global/plugins/ie8.fix.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp"></script>
+	<![endif]-->
+	<!-- BEGIN CORE PLUGINS -->
+	<script src="@Url.Content("~/assets/global/plugins/jquery.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp" type="text/javascript"></script>
+	<script src="@Url.Content("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp" type="text/javascript"></script>
+	<script src="@Url.Content("~/assets/global/plugins/jquery-validation/js/jquery.validate.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp" type="text/javascript"></script>
+	<script src="@Url.Content("~/assets/global/plugins/jquery-validation/js/localization/messages_pt_BR.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp" type="text/javascript"></script>
+	<script src="@Url.Content("~/assets/global/plugins/jquery-validation/js/additional-methods.min.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.AJAXFactory.component.js")?v=@Arquitetura.Classes.Util.timeStampSystemUp" type="text/javascript"></script>
+	@Html.Partial("~/Views/Global/GlobalScriptClean.cshtml")
+	<div class="page-wrapper">
+		<!-- BEGIN CONTAINER -->
+		<div class="page-container">
+			<!-- BEGIN CONTENT BODY -->
+			<div class="page-content">
+				@RenderBody()
+			</div>
+			<!-- END CONTENT BODY -->
+		</div>
+		<!-- END CONTAINER -->
+	</div>
+</body>
+</html>

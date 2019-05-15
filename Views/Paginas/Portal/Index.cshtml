@@ -1,0 +1,97 @@
+﻿@*
+    Nova Página do Portal.
+    Leon Denis Paiva e Silva [PrimeTeam]
+*@
+@{
+    Layout = "~/Views/Layouts/_LayoutPortal.cshtml";
+    ViewBag.NomePagina = "Portal";
+    var colClassCount = 6;
+    var sistemasUsuario = ControleDeAcesso.ObterConjuntoDePermissoesUsuario(HttpContext.Current.Session);
+    var colCount = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Convert.ToDecimal(sistemasUsuario.SistemasPermitidos.Count) / Convert.ToDecimal(colClassCount))));
+}
+@* Token de Segurança *@
+@Html.AntiForgeryToken()
+@* Folha De Estilo *@
+@Html.Partial("~/Views/Paginas/Portal/Partials/_IndexStyle.cshtml")
+<div class="smart-midle-container">
+    @{
+        for (var i = 0; i < colCount; i++)
+        {
+            <div class="row row-center">
+                @GenerateRows(sistemasUsuario.SistemasPermitidos.Skip(i).Take(colClassCount).ToList())
+            </div>
+        }
+    }
+    @helper GenerateRows(List<ControleDeAcessoTO.ObterSistemasPermitidos> SistemasPermitidos)
+{
+    var lstSistemasPermitidos = from sis in SistemasPermitidos
+                                group sis by new
+                                {
+                                    CODSISINF = sis.CODSISINF,
+                                    DESIMGSISINF = sis.DESIMGSISINF,
+                                    DESSISINF = sis.DESSISINF,
+                                    FLGIDTDPVMVL = sis.FLGIDTDPVMVL,
+                                }
+                                into lst
+                                select new
+                                {
+                                    CODSISINF = lst.Key.CODSISINF,
+                                    DESIMGSISINF = lst.Key.DESIMGSISINF,
+                                    DESSISINF = lst.Key.DESSISINF,
+                                    FLGIDTDPVMVL = lst.Key.FLGIDTDPVMVL
+                                };
+    foreach (var itm in lstSistemasPermitidos.Where(x => (!Request.Browser.IsMobileDevice || (Request.Browser.IsMobileDevice && x.FLGIDTDPVMVL == 1))))
+    {
+                <div class="col-sm-2 smart-sistema col-center btnSistema" codsisinf="@itm.CODSISINF">
+                    <div class="smart-system-title">
+                        <div class="smart-system-icon">
+                            @if (string.IsNullOrEmpty(itm.DESIMGSISINF))
+                            {
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                            }
+                            else
+                            {
+                                <img src="data:image/png;base64, @itm.DESIMGSISINF" alt="Sistema" class="smart-img-sis" />
+                            }
+                        </div>
+                    </div>
+                    <div class="smart-system-sep"></div>
+                    <div class="smart-system-desc">
+                        @itm.DESSISINF
+                    </div>
+                </div>
+        }
+}
+</div>
+<div class="smart-copyrigth">Copyright &copy; @DateTime.Now.Year - Smart Supermecados. Todos os direitos reservados.</div>
+@* Menu *@
+<div id="smart-menu-fade" class="smart-fade-div" style="display: none;"></div>
+@* --- *@
+<div id="smart-menu" class="smart-menu-portal" style="display: none;">
+    <div class="smart-menu-div-top text-left" style="padding-left: 8pt;">
+        @* smart-menu-btn *@
+        <button class="btn white btn-outline" id="btnCloseMenu">
+            <i class="fa fa-arrow-right"></i>
+        </button>
+    </div>
+    <h2>Minha Conta</h2>
+    <hr />
+    <p class="smart-nome-menu">
+        &bull; @ControleDeAcesso.ObterConjuntoDePermissoesUsuario(HttpContext.Current.Session).InformacoesUsuario.NOMFNC
+    </p>
+    <p class="smart-nome-menu">
+        &bull; @ControleDeAcesso.ObterConjuntoDePermissoesUsuario(HttpContext.Current.Session).InformacoesUsuario.DESENDCREETNFNC
+    </p>
+    <hr />
+    <p class="smart-p-bottom">
+        @*<button class="btn white btn-outline">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+        </button>*@
+        <a href="@Url.Content("~/api/Login/Deslogar")" class="btn red-flamingo btn-outline">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Sair
+        </a>
+    </p>
+</div>
+@* Script da Página *@
+@Html.Partial("~/Views/Paginas/Portal/Partials/_IndexScript.cshtml")

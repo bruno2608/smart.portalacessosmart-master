@@ -1,0 +1,32 @@
+﻿<script type="text/javascript">
+	$(document).ready(function() {
+		autoRedim();
+		$('.page-wrapper').attr('style', 'background: #c43c37;');
+
+		$('.btnSistema').click(function () {
+		    var codSisInf = $(this).attr("codsisinf");
+			with (new ComponenteAJAXFactory()) {
+			    with (modelo) {
+					ajaxURL = "@Url.Content("~/api/Portal/TransicionarSistema")";
+				    with (addidsEnviarRequisicaoAjax) { nomeJsonEnviar = "CODSISINF", idJsonEnviar = function () { return codSisInf; }, tipoJsonEnviar = 'tipoFuncao' }
+				    ajaxSuccessCallbackMethod = function (data) {
+				        window.top.location.href = data.DESURLLNK;
+				    }
+				}
+				inicializar();
+			}
+        });
+    });
+    var autoRedim = function () {
+        redim();
+        $(window).resize(function () { redim(); });
+    };
+    var redim = function () {
+        var main_container = $('#mainContainer');
+        var window_height = $(window).height();
+        var main_style = 'height: ' + (window_height - 160) + 'px; overflow: auto;\
+                          box-shadow: 0 5px 8px rgba(0, 0,0, 0.25) inset !important;\
+                          -webkit-box-shadow: 0 5px 8px rgba(0, 0,0, 0.25) inset !important;'.toString();
+        main_container.attr('style', main_style);
+    };
+</script>

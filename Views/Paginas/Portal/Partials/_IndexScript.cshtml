@@ -1,0 +1,152 @@
+﻿@*
+    Script da nova página do portal.
+    Leon Denis Paiva e Silva. [PrimeTeam]
+*@
+<script type="text/javascript">
+    //Page Load.
+    $(function () {
+        //Iniciando Página responsiva.
+        pageResponsive.start();
+        //Iniciando Controles da Página.
+        setControls();
+
+        //Selecionar Sistema.
+        $('.btnSistema').click(function () {
+            var codSisInf = $(this).attr("codsisinf");
+            with (new ComponenteAJAXFactory()) {
+                with (modelo) {
+                    ajaxURL = "@Url.Content("~/api/Portal/TransicionarSistema")";
+                    with (addidsEnviarRequisicaoAjax) { nomeJsonEnviar = "CODSISINF", idJsonEnviar = function () { return codSisInf; }, tipoJsonEnviar = 'tipoFuncao' }
+                    ajaxSuccessCallbackMethod = function (data) {
+                        window.top.location.href = data.DESURLLNK;
+                    }
+                }
+                inicializar();
+            }
+        });
+    });
+
+    //Controles da Página.
+    //Leon Denis Paiva e Silva. [PrimeTeam]
+    var setControls = function () {
+        //Primeiro Nome do Funcionário
+        getFirstNomFnc();
+        //Recarregar Página. [Não Necessário]
+        //$('#btnReload').click(function () {
+        //    window.location.reload();
+        //});
+        //Abrir menu.
+        $('#spnMenuShow').click(function () {
+            smartMenu.show();
+        });
+        //Fechar menu.
+        $('#btnCloseMenu').click(function () {
+            smartMenu.hide();
+        });
+        $('#smart-menu-fade').click(function () {
+            smartMenu.hide();
+        });
+        //-
+    };
+
+    //Reduzir nome do funcionário.
+    //Leon Denis Paiva e Silva. [PrimeTeam]
+    var getFirstNomFnc = function () {
+        try {
+            var nome = $('#spnNomFnc').text().trim();
+            var primeiroNome = '';
+            var ultimoNome = '', Segundo = false;
+            for (var i = 0; i < nome.length; i++) {
+                if (nome[i].toString() !== ' ') {
+                    primeiroNome += nome[i].toString();
+                } else {
+                    break;
+                };
+            };
+            //-
+            for (var i = 0; i < nome.length; i++) {
+                if (nome[i].toString() === ' ') {
+                    Segundo = true;
+                } else if (Segundo) {
+                    ultimoNome += nome[i].toString();
+                    if (nome[i + 1].toString() === ' ') {
+                        break;
+                    };
+                };
+            };
+            //-
+
+
+            $('#spnNomFnc').text(primeiroNome + ' ' + ultimoNome);
+
+        } catch (ex) {
+            console.log('ERRO: ' + ex.toLocaleString());
+        };
+    };
+
+    //Pagina Responsiva.
+    //Leon Denis Paiva e Silva. [PrimeTeam]
+    var pageResponsive = {
+        base: function () {
+            try {
+                var tmoContainer = ($(window).height() - $('.container').height() - 50);
+                $('.page-content').css('height', tmoContainer + 'px');
+                $('#smart-menu').css('height', ($(window).height()) + 'px');
+                $('.smart-midle-container').css('height', (tmoContainer - 50) + 'px');
+                if ($(window).width() <= 610) {
+                    $('.smart-portal-label').addClass('smart-hidden');
+                    $('.smart-portal-split:first').addClass('smart-hidden');
+                } else {
+                    $('.smart-portal-label').removeClass('smart-hidden');
+                    $('.smart-portal-split:first').removeClass('smart-hidden');
+                };
+                if ($(window).width() <= 750) {
+                    $('.row').removeClass('row-center');
+                    $('.col-sm-2').removeClass('col-center');
+                } else {
+                    $('.row').addClass('row-center');
+                    $('.col-sm-2').addClass('col-center');
+                };
+            } catch (ex) {
+                console.log('ERRO: ' + ex.toLocaleString());
+            };
+        },
+        start: function () {
+            try {
+                pageResponsive.base();
+                $(window).resize(function () { pageResponsive.base(); });
+                $(window).scroll(function () { pageResponsive.base(); });
+            } catch (ex) {
+                console.log('ERRO: ' + ex.toLocaleString());
+            };
+        }
+    };
+
+    //Menu Smart.
+    //Leon Denis Paiva e Silva. [PrimeTeam]
+    var smartMenu = {
+        show: function () {
+            //$('#smart-menu').toggle('bounce');
+            //$('#smart-menu').slideDown('fast');
+            $('#smart-menu').fadeIn();
+            $('#smart-menu-fade').fadeIn();
+            var blurred = 'filter: blur(5px); filter: -moz-blur(5px);\
+                           filter: -webkit-blur(5px); filter: -ms-blur(5px);'
+            $('.smart-midle-container').attr('style', blurred);
+            $('.container.smart-nav-bar').attr('style', blurred);
+        },
+        hide: function () {
+            //$('#smart-menu').toggle('bounce');
+            //$('#smart-menu').slideUp('fast');
+            $('#smart-menu').fadeOut();
+            $('#smart-menu-fade').fadeOut();
+            var normal = 'filter: blur(0px); filter: -moz-blur(0px);\
+                           filter: -webkit-blur(0px); filter: -ms-blur(0px);'
+            $('.smart-midle-container').attr('style', normal);
+            $('.container.smart-nav-bar').attr('style', normal);
+            //-
+            pageResponsive.base();
+        }
+    };
+
+</script>
